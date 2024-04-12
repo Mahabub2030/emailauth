@@ -1,7 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebaseConfig";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+        const [RegisterError, setRegisterError] = useState('');
+        const [success, setSuccess] = useState('');
 
         const handelLoging = e => {
                 e.preventDefault();
@@ -10,13 +14,20 @@ const Login = () => {
 
                 console.log(email , password);
 
+                // reset 
+                setRegisterError('');
+                setSuccess('');
+
                 // aaded valdetion 
                 signInWithEmailAndPassword(auth, email,password)
                 .then( result => {
                         console.log(result.user);
+                        setSuccess('user Loging  done')
                 
                 })
-                .catch( error => console.error(error))
+                .catch( error => {console.error(error);
+                        setRegisterError(error.message);
+                })
 
         }
         return (
@@ -40,13 +51,21 @@ const Login = () => {
                                                         </label>
                                                         <input type="password" placeholder="password" className="input input-bordered" name="password" required />
                                                         <label className="label">
-                                                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                                                <a onClick={} href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                                         </label>
                                                 </div>
                                                 <div className="form-control mt-6">
                                                         <button className="btn btn-primary">Login</button>
                                                 </div>
                                         </form>
+                                        {
+                                        RegisterError && <p className="text-red-500">(RegisterError)</p>
+                                }
+                                {
+                                        success && <p className="text-green-500">(success the email)</p>
+                                }
+                                <p> Please Register <Link to="/register">Register</Link> </p>
+
                                 </div>
                         </div>
                 </div>
