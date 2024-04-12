@@ -13,9 +13,16 @@ const Register = () => {
                 const password = e.target.password.value;
 
                 console.log(email, password);
-                // rest error
-                setRegisterError('');
-                setSuccess('');
+
+                 // rest error
+                 setRegisterError('');
+                 setSuccess('');
+
+                if (password .length < 6){
+                        setRegisterError ('shoed be password 6 carcter');
+                        return;
+                }
+               
 
                 // create user
 
@@ -48,7 +55,7 @@ const Register = () => {
                                         RegisterError  && <p className="text-red-500">(RegisterError)</p>
                                 }
                                 {
-                                        success && <p className="text-green-500">(success)</p>
+                                        success && <p className="text-green-500">(success the email)</p>
                                 }
                         </div>
                 </div>
